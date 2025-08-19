@@ -1,16 +1,11 @@
 # AI Agents FastAPI Application
 
-Полнофункциональное FastAPI приложение для работы с AI агентами для управления корпоративными процессами.
+A full-featured FastAPI application for working with AI agents to manage corporate processes.
 
-## Архитектура системы
+## System Architecture
 
-### Общая архитектура
+### Overall Architecture
 
-> **Как просмотреть PlantUML диаграммы:**
-> 1. **VS Code**: установите расширение PlantUML и откройте Preview
-> 2. **Онлайн**: скопируйте код диаграммы и вставьте на [plantuml.com](http://www.plantuml.com/plantuml/uml/)
-> 3. **GitHub**: диаграммы отображаются как блоки кода (рендеринг не поддерживается)
-> 4. **Альтернатива**: см. текстовую схему ниже
 
 ```plantuml
 @startuml
@@ -82,9 +77,9 @@ OfficeAgent --> OpenAI
 @enduml
 ```
 
-### Взаимодействие агентов
+### Agent Interaction
 
-> 💡 **Совет**: скопируйте код диаграммы и вставьте на [plantuml.com](http://www.plantuml.com/plantuml/uml/) для онлайн просмотра
+> 💡 **Tip**: copy the diagram code and paste it on [plantuml.com](http://www.plantuml.com/plantuml/uml/) for online viewing
 
 ```plantuml
 @startuml
@@ -132,9 +127,9 @@ PayrollAgent --> ProfileFuncs
 @enduml
 ```
 
-### Поток обработки запросов
+### Request Processing Flow
 
-> 💡 **Sequence диаграмма**: показывает полный жизненный цикл запроса с параллельными консультациями
+> 💡 **Sequence diagram**: shows the complete request lifecycle with parallel consultations
 
 ```plantuml
 @startuml
@@ -195,9 +190,9 @@ API --> User : Combined decision
 @enduml
 ```
 
-### Модель данных
+### Data Model
 
-> 💡 **ER диаграмма**: структура данных с полями, ключами и связями между таблицами
+> 💡 **ER diagram**: data structure with fields, keys and relationships between tables
 
 ```plantuml
 @startuml
@@ -249,9 +244,9 @@ AGENT_CONFIG ||--o{ CONVERSATION_HISTORY : processes
 @enduml
 ```
 
-### Архитектура классов агентов
+### Agent Class Architecture
 
-> 💡 **Class диаграмма**: иерархия наследования агентов с методами и связями
+> 💡 **Class diagram**: agent inheritance hierarchy with methods and relationships
 
 ```plantuml
 @startuml
@@ -324,237 +319,250 @@ CEOAgent --> PayrollAgent : consults
 @enduml
 ```
 
-## Структура проекта
+## Project Structure
 
 ```
 open_ai_full_app/
 ├── src/
-│   ├── main.py                          # Основной файл FastAPI приложения
-│   ├── api/                             # API маршруты
+│   ├── main.py                          # Main FastAPI application file
+│   ├── api/                             # API routes
 │   │   └── v1/
-│   │       ├── routes.py                # Основной роутер v1
-│   │       └── endpoints/               # API эндпоинты
-│   │           ├── agents.py            # Информация об агентах
-│   │           └── chat.py              # Обработка сообщений
-│   ├── agents_core/                     # Система AI агентов
+│   │       ├── routes.py                # Main v1 router
+│   │       └── endpoints/               # API endpoints
+│   │           ├── agents.py            # Agent information
+│   │           └── chat.py              # Message processing
+│   ├── agents_core/                     # AI agents system
 │   │   └── agents/
-│   │       ├── route_agent.py           # Маршрутизатор запросов
-│   │       ├── ceo_agent.py             # Исполнительный директор
-│   │       ├── hr_agent.py              # HR менеджер
-│   │       ├── payroll_agent.py         # Менеджер по зарплате
-│   │       ├── office_culture.py        # Офисная культура
-│   │       ├── hooks.py                 # Хуки для мониторинга
-│   │       └── context/                 # Система контекста
-│   │           ├── context_manager.py   # Менеджер контекста
-│   │           ├── context_config.py    # Конфигурация данных
-│   │           └── functions.py         # Контекстные функции
-│   └── database/                        # База данных
-│       └── conversation_history.db      # SQLite БД для истории
-├── tests/                               # Тесты
-├── requirements.txt                     # Зависимости Python
-└── .env.example                         # Пример переменных окружения
+│   │       ├── route_agent.py           # Request router
+│   │       ├── ceo_agent.py             # Executive director
+│   │       ├── hr_agent.py              # HR manager
+│   │       ├── payroll_agent.py         # Payroll manager
+│   │       ├── office_culture.py        # Office culture
+│   │       ├── hooks.py                 # Monitoring hooks
+│   │       └── context/                 # Context system
+│   │           ├── context_manager.py   # Context manager
+│   │           ├── context_config.py    # Data configuration
+│   │           └── functions.py         # Context functions
+│   └── database/                        # Database
+│       └── conversation_history.db      # SQLite DB for history
+├── tests/                               # Tests
+├── requirements.txt                     # Python dependencies
+└── .env.example                         # Environment variables example
 ```
 
-## Установка
+## Installation
 
-1. Клонируйте репозиторий и перейдите в директорию:
+1. Clone the repository and navigate to the directory:
 ```bash
 cd open_ai_full_app
 ```
 
-2. Создайте виртуальное окружение:
+2. Create a virtual environment:
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # Linux/Mac
-# или
+# or
 venv\\Scripts\\activate  # Windows
 ```
 
-3. Установите зависимости:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Создайте файл `.env` на основе `.env.example`:
+4. Create a `.env` file based on `.env.example`:
 ```bash
 cp .env.example .env
 ```
 
-5. Отредактируйте `.env` файл, добавив ваш OpenAI API ключ:
+5. Edit the `.env` file, adding your OpenAI API key and PubSub configuration:
 ```
 OPENAI_API_KEY=your_actual_api_key_here
 MODEL_NAME=gpt-4
 SECRET_KEY=your-secret-key-here
+
+# Google Cloud PubSub Configuration
+PUBSUB_PROJECT_ID=your-gcp-project-id
+PUBSUB_TOPIC_ID=agents-topic
+
+# Google Cloud Authentication (optional if using service account key)
+GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account-key.json
 ```
 
-## Запуск приложения
+**Note**: For PubSub integration, you need to:
+- Create a Google Cloud Project
+- Enable the Pub/Sub API
+- Create a topic in your GCP console
+- Set up authentication (service account key or Application Default Credentials)
 
-### Режим разработки
+## Running the Application
+
+### Development Mode
 ```bash
 cd src
 python3 main.py
 ```
 
-### С помощью uvicorn
+### Using uvicorn
 ```bash
 cd src
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Приложение будет доступно по адресу: http://localhost:8000
+The application will be available at: http://localhost:8000
 
-## API Документация
+## API Documentation
 
-После запуска приложения документация API доступна по адресам:
+After starting the application, API documentation is available at:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
-## Описание компонентов
+## Component Description
 
-### AI Агенты
+### AI Agents
 
-#### 🚦 Route Agent - Маршрутизатор запросов
-**Функции:**
-- Анализ входящих запросов пользователей
-- Определение типа запроса (офисная культура vs. запросы на утверждение)
-- Маршрутизация к соответствующему агенту
-- Персонализация ответов через контекстные функции
+#### 🚦 Route Agent - Request Router
+**Functions:**
+- Analysis of incoming user requests
+- Determination of request type (office culture vs. approval requests)
+- Routing to appropriate agent
+- Response personalization through context functions
 
-**Маршрутизация:**
-- **Office Culture** → Office Culture Agent (вопросы о культуре, общие вопросы)
-- **Approval Requests** → CEO Agent (отпуска, повышения, командировки)
+**Routing:**
+- **Office Culture** → Office Culture Agent (culture questions, general questions)
+- **Approval Requests** → CEO Agent (vacations, raises, business trips)
 
-#### 👔 CEO Agent - Исполнительный директор
-**Функции:**
-- Утверждение запросов на отпуска
-- Решения о повышении зарплаты
-- Одобрение командировок
-- Координация между HR и Payroll департаментами
+#### 👔 CEO Agent - Executive Director
+**Functions:**
+- Approval of vacation requests
+- Salary raise decisions
+- Business trip approval
+- Coordination between HR and Payroll departments
 
-**Возможности:**
-- Параллельные консультации с HR и Payroll агентами
-- Комплексный анализ заявок сотрудников
-- Принятие окончательных решений на основе данных
+**Capabilities:**
+- Parallel consultations with HR and Payroll agents
+- Comprehensive analysis of employee applications
+- Final decision making based on data
 
-**Инструменты:**
-- Контекстные функции пользователя
-- Консультации с HR департаментом
-- Консультации с Payroll департаментом
-- Анализ профиля и правомочности сотрудника
+**Tools:**
+- User context functions
+- HR department consultations
+- Payroll department consultations
+- Employee profile and eligibility analysis
 
-#### 👤 HR Agent - Менеджер по кадрам
-**Функции:**
-- Обработка запросов на отпуска
-- Проверка доступности дат отпусков
-- Информация о сотрудниках
-- Управление кадровыми политиками
+#### 👤 HR Agent - Human Resources Manager
+**Functions:**
+- Process vacation requests
+- Check vacation date availability
+- Employee information
+- Manage HR policies
 
-**Возможности:**
-- Анализ запросов на отпуска с проверкой доступности дат
-- Предложение альтернативных дат при конфликтах
-- Оценка правомочности сотрудников на льготы
-- Персонализированные ответы
+**Capabilities:**
+- Analyze vacation requests with date availability checks
+- Suggest alternative dates when conflicts arise
+- Assess employee eligibility for benefits
+- Personalized responses
 
-**Инструменты:**
-- `get_available_vacation_dates()` - доступные даты отпусков
-- `check_vacation_request(dates)` - проверка запроса на отпуск
-- `get_employee_profile()` - профиль сотрудника
-- `analyze_employee_eligibility()` - анализ правомочности
+**Tools:**
+- `get_available_vacation_dates()` - available vacation dates
+- `check_vacation_request(dates)` - vacation request validation
+- `get_employee_profile()` - employee profile
+- `analyze_employee_eligibility()` - eligibility analysis
 
-#### 💰 Payroll Agent - Менеджер по зарплате
-**Функции:**
-- Расчеты повышения зарплаты
-- Анализ финансовых запросов
-- Проверка соответствия рейтинга сотрудника
-- Генерация отчетов по компенсациям
+#### 💰 Payroll Agent - Payroll Manager
+**Functions:**
+- Salary increase calculations
+- Financial request analysis
+- Employee rating compliance verification
+- Compensation report generation
 
-**Возможности:**
-- Расчет повышения зарплаты с учетом рейтинга сотрудника
-- Проверка доступных процентов повышения
-- Определение максимально допустимого повышения
-- Детальный анализ финансовых изменений
+**Capabilities:**
+- Calculate salary increases based on employee rating
+- Check available increase percentages
+- Determine maximum allowable increase
+- Detailed financial change analysis
 
-**Инструменты:**
-- `get_employee_salary_info()` - информация о зарплате
-- `calculate_salary_increase(percentage)` - расчет повышения
-- `get_max_allowed_salary_increase()` - максимальное повышение
-- `get_available_salary_increases()` - доступные проценты
+**Tools:**
+- `get_employee_salary_info()` - salary information
+- `calculate_salary_increase(percentage)` - increase calculation
+- `get_max_allowed_salary_increase()` - maximum increase
+- `get_available_salary_increases()` - available percentages
 
-#### 🏢 Office Culture Agent - Агент офисной культуры
-**Функции:**
-- Ответы на вопросы о корпоративной культуре
-- Информация об офисной атмосфере
-- Общие вопросы о компании
-- Представление компании
+#### 🏢 Office Culture Agent - Office Culture Agent
+**Functions:**
+- Answer questions about corporate culture
+- Provide office atmosphere information
+- Handle general company questions
+- Company representation
 
-**Возможности:**
-- Персонализированные ответы о корпоративной культуре
-- Информация о рабочей атмосфере
-- Ответы на общие вопросы сотрудников
+**Capabilities:**
+- Personalized responses about corporate culture
+- Work atmosphere information
+- Answer general employee questions
 
-### Система контекста
+### Context System
 
 #### 🗂️ Context Manager
-Центральный менеджер для управления контекстом пользователя и данными:
+Central manager for handling user context and data:
 
-**Компоненты:**
-- **User Context** - информация о пользователе (имя, должность, зарплата, рейтинг)
-- **Vacation Context** - доступные даты отпусков
-- **Salary Context** - доступные проценты повышения зарплаты
+**Components:**
+- **User Context** - user information (name, position, salary, rating)
+- **Vacation Context** - available vacation dates
+- **Salary Context** - available salary increase percentages
 
 #### 🔧 Context Functions
-Набор функций для работы с контекстными данными:
+Set of functions for working with contextual data:
 
-**Функции пользователя:**
-- `get_user_info()` - полная информация о пользователе
-- `get_user_basic_info()` - базовая информация (имя, должность)
-- `get_user_rating()` - рейтинг сотрудника
+**User Functions:**
+- `get_user_info()` - complete user information
+- `get_user_basic_info()` - basic information (name, position)
+- `get_user_rating()` - employee rating
 
-**Функции отпусков:**
-- `get_available_vacation_dates()` - доступные даты
-- `check_vacation_request(dates)` - проверка запроса
-- `check_single_vacation_date(date)` - проверка одной даты
+**Vacation Functions:**
+- `get_available_vacation_dates()` - available dates
+- `check_vacation_request(dates)` - request validation
+- `check_single_vacation_date(date)` - single date validation
 
-**Функции зарплаты:**
-- `get_employee_salary_info()` - информация о зарплате
-- `calculate_salary_increase(percentage)` - расчет повышения
-- `get_max_allowed_salary_increase()` - максимальное повышение
+**Salary Functions:**
+- `get_employee_salary_info()` - salary information
+- `calculate_salary_increase(percentage)` - increase calculation
+- `get_max_allowed_salary_increase()` - maximum increase
 
-**Аналитические функции:**
-- `get_employee_profile()` - полный профиль сотрудника
-- `analyze_employee_eligibility()` - анализ правомочности
+**Analytical Functions:**
+- `get_employee_profile()` - complete employee profile
+- `analyze_employee_eligibility()` - eligibility analysis
 
-### Система мониторинга
+### Monitoring System
 
 #### 📊 Agent Hooks
-Унифицированная система для отслеживания жизненного цикла агентов:
+Unified system for tracking agent lifecycle:
 
-**События:**
-- `on_start()` - начало выполнения агента
-- `on_end()` - завершение работы агента с результатом
+**Events:**
+- `on_start()` - agent execution start
+- `on_end()` - agent completion with result
 
-**Функции:**
-- Логирование с временными метками
-- Отслеживание производительности агентов
-- Мониторинг результатов выполнения
+**Functions:**
+- Logging with timestamps
+- Agent performance tracking
+- Execution result monitoring
 
-## Основные эндпоинты
+## Main Endpoints
 
-- `GET /` - Корневой эндпоинт
-- `GET /health` - Проверка здоровья
-- `GET /api/v1/agents/` - Список агентов
-- `GET /api/v1/agents/{agent_name}` - Информация об агенте
-- `POST /api/v1/chat/` - Отправить сообщение агенту
-- `GET /api/v1/chat/history/{agent_name}` - История чата
+- `GET /` - Root endpoint
+- `GET /health` - Health check
+- `GET /api/v1/agents/` - List of agents
+- `GET /api/v1/agents/{agent_name}` - Agent information
+- `POST /api/v1/chat/` - Send message to agent
+- `GET /api/v1/chat/history/{agent_name}` - Chat history
 
-## Примеры использования
+## Usage Examples
 
-### Получить список агентов
+### Get list of agents
 ```bash
 curl http://localhost:8000/api/v1/agents/
 ```
 
-### Отправить сообщение HR агенту
+### Send message to HR agent
 ```bash
 curl -X POST http://localhost:8000/api/v1/chat/ \
   -H "Content-Type: application/json" \
@@ -564,59 +572,59 @@ curl -X POST http://localhost:8000/api/v1/chat/ \
   }'
 ```
 
-## Разработка
+## Development
 
-### Запуск тестов
+### Running tests
 ```bash
 pytest tests/
 ```
 
-### Форматирование кода
+### Code formatting
 ```bash
 black src/
 ```
 
-### Проверка типов
+### Type checking
 ```bash
 mypy src/
 ```
 
-## Особенности архитектуры
+## Architecture Features
 
-### 🎯 Интеллектуальная маршрутизация
-- **Автоматическое определение намерений** - Route Agent анализирует запросы и направляет к подходящему специалисту
-- **Контекстная персонализация** - все агенты получают доступ к информации о пользователе для персонализированных ответов
+### 🎯 Intelligent Routing
+- **Automatic intent detection** - Route Agent analyzes requests and directs to appropriate specialist
+- **Contextual personalization** - all agents get access to user information for personalized responses
 
-### 🤝 Межагентная координация
-- **Параллельные консультации** - CEO Agent может одновременно консультироваться с HR и Payroll агентами
-- **Handoff механизм** - плавная передача управления между агентами
-- **Централизованные решения** - CEO Agent принимает окончательные решения на основе консультаций
+### 🤝 Inter-agent Coordination
+- **Parallel consultations** - CEO Agent can simultaneously consult with HR and Payroll agents
+- **Handoff mechanism** - smooth transfer of control between agents
+- **Centralized decisions** - CEO Agent makes final decisions based on consultations
 
-### 📊 Контекстно-зависимые решения
-- **Рейтинг-ориентированные расчеты** - размер повышения зарплаты зависит от рейтинга сотрудника
-- **Проверка правомочности** - система автоматически проверяет право сотрудника на льготы
-- **Интеллектуальные альтернативы** - предложение альтернативных дат при конфликтах в расписании
+### 📊 Context-dependent Decisions
+- **Rating-oriented calculations** - salary increase amount depends on employee rating
+- **Eligibility verification** - system automatically checks employee eligibility for benefits
+- **Intelligent alternatives** - suggesting alternative dates when schedule conflicts arise
 
-### 🔍 Мониторинг и отслеживание
-- **Lifecycle hooks** - отслеживание выполнения каждого агента
-- **Сохранение истории** - все диалоги сохраняются в SQLite для анализа
-- **Временные метки** - детальное логирование времени выполнения
+### 🔍 Monitoring and Tracking
+- **Lifecycle hooks** - tracking execution of each agent
+- **History preservation** - all dialogues are saved in SQLite for analysis
+- **Timestamps** - detailed logging of execution time
 
-### ⚡ Производительность
-- **Параллельное выполнение** - CEO Agent поддерживает параллельные вызовы инструментов
-- **Кэширование контекста** - Context Manager предоставляет быстрый доступ к данным пользователя
-- **Асинхронная обработка** - все агенты работают асинхронно
+### ⚡ Performance
+- **Parallel execution** - CEO Agent supports parallel tool calls
+- **Context caching** - Context Manager provides fast access to user data
+- **Asynchronous processing** - all agents work asynchronously
 
-## Технологии
+## Technologies
 
-- **FastAPI** - Современный веб-фреймворк для API
-- **OpenAI Agents 0.2.6** - Фреймворк для создания AI агентов
-- **Pydantic** - Валидация и сериализация данных
-- **SQLite** - Легковесная база данных для хранения истории
-- **OpenAI API** - Модели GPT для обработки естественного языка
-- **Uvicorn** - Высокопроизводительный ASGI сервер
-- **Python 3.8+** - Современная версия Python с поддержкой async/await
+- **FastAPI** - Modern web framework for API
+- **OpenAI Agents 0.2.6** - Framework for creating AI agents
+- **Pydantic** - Data validation and serialization
+- **SQLite** - Lightweight database for storing history
+- **OpenAI API** - GPT models for natural language processing
+- **Uvicorn** - High-performance ASGI server
+- **Python 3.8+** - Modern Python version with async/await support
 
-## Лицензия
+## License
 
 MIT License

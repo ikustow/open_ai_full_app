@@ -24,11 +24,20 @@ class ContextManager:
     user_context: UserContext
     available_dates_for_vacation: AvailableDatesForVacation
     available_salary_increase_percentages: AvailableSalaryIncreasePercentages
+    session_id: str = "default"
+    tenant_id: str = "default"
     
-    def __init__(self):
-        self.user_context = UserContext(**user_context)
+    def __init__(self, session_id: str = "default", tenant_id: str = "default", user_id: str = None):
+        # Создаем копию user_context и обновляем user_id если передан
+        user_data = user_context.copy()
+        if user_id:
+            user_data["user_id"] = user_id
+            
+        self.user_context = UserContext(**user_data)
         self.available_dates_for_vacation = AvailableDatesForVacation(dates=available_dates_for_vacation)
         self.available_salary_increase_percentages = AvailableSalaryIncreasePercentages(percentages=available_salary_increase_percentages)
+        self.session_id = session_id
+        self.tenant_id = tenant_id
         
         
         

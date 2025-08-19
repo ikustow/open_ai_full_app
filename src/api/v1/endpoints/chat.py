@@ -14,6 +14,7 @@ class MessageRequest(BaseModel):
     message: str
     session_id: str = "default"
     user_id: str = "123_id"
+    tenant_id: str = "default"
 
 
 class MessageResponse(BaseModel):
@@ -27,8 +28,12 @@ async def process_message(request: MessageRequest):
         # Создаем сессию с встроенным менеджером базы данных
         session = SQLiteSession(request.session_id, "src/database/conversation_history.db")
         user_id = request.user_id
-        # Создаем контекст-менеджер
-        context_manager = ContextManager()
+        # Создаем контекст-менеджер с передачей session_id, tenant_id и user_id
+        context_manager = ContextManager(
+            session_id=request.session_id,
+            tenant_id=request.tenant_id,
+            user_id=request.user_id
+        )
         
         # Обрабатываем сообщение через route_agent с передачей контекста
         result = await Runner.run(

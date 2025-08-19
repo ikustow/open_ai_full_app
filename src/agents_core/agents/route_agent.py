@@ -46,7 +46,12 @@ route_agent = Agent[ContextManager](
 async def main():
     # same session for the entire dialog
     session = SQLiteSession("thread_1", "src/database/conversation_history.db")
-    context_manager = ContextManager()
+    # Создаем контекст с примером реальных ID
+    context_manager = ContextManager(
+        session_id="thread_1", 
+        tenant_id="demo_company",
+        user_id="demo_user_456"
+    )
 
     result = await Runner.run(
         route_agent,

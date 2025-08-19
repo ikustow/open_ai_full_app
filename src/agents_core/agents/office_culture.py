@@ -50,7 +50,12 @@ office_culture_agent = Agent[ContextManager](
 )
 
 async def main():
-    context_manager = ContextManager()
+    # Создаем контекст с примером реальных ID для тестирования
+    context_manager = ContextManager(
+        session_id="office_culture_test",
+        tenant_id="demo_company",
+        user_id="test_user_123"
+    )
     result = await Runner.run(office_culture_agent, "What is the office culture like?", context=context_manager)
     print(result.final_output)
 
