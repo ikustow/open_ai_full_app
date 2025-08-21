@@ -3,7 +3,7 @@ FastAPI приложение для работы с AI агентами
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.v1.routes import api_router
+from src.api.v1.routes import api_router
 
 app = FastAPI(
     title="AI Agents API",

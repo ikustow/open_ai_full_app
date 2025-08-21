@@ -4,8 +4,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from agents import Runner, SQLiteSession
-from agents_core.agents.route_agent import route_agent
-from agents_core.agents.context.context_manager import ContextManager
+from src.agents_core.agents.route_agent import route_agent
+from src.agents_core.agents.context.context_manager import ContextManager
 
 router = APIRouter()
 

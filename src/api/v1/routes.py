@@ -2,7 +2,7 @@
 Основной маршрутизатор API v1
 """
 from fastapi import APIRouter
-from api.v1.endpoints import agents, chat
+from src.api.v1.endpoints import agents, chat
 
 api_router = APIRouter()
 
