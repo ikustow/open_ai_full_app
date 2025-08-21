@@ -116,7 +116,7 @@ class UnifiedAgentHooks(AgentHooksBase[TContext, Agent]):
         print("-" * 80)
         
         # Send message to PubSub when agent completes
-        await self._send_pubsub_message(context, agent, "completion", f"Agent '{agent.name}' completed execution with output: {str(output)[:200]}...")
+        await self._send_pubsub_message(context, agent, "completion", output)
 
 # Create a shared instance that can be used across all agents
 agent_hooks = UnifiedAgentHooks()
