@@ -16,8 +16,5 @@ COPY src/ ./src/
 # Устанавливаем переменную окружения для Python
 ENV PYTHONPATH=/app
 
-# Открываем порт
-EXPOSE 8080
-
 # Команда для запуска приложения
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD exec uvicorn src.main:app --host 0.0.0.0 --port ${PORT:-8080}

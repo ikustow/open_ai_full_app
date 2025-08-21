@@ -11,6 +11,11 @@ python-dotenv==1.0.0
 # Google Cloud PubSub
 google-cloud-pubsub>=2.18.0
 
+
+
+# Async support
+asyncio
+
 # Для разработки
 pytest>=8.0.0
 pytest-asyncio>=0.24.0
